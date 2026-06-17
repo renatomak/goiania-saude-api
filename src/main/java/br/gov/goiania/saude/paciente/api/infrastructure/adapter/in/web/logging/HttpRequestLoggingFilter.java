@@ -23,6 +23,7 @@ public class HttpRequestLoggingFilter extends OncePerRequestFilter {
     private static final String MDC_REQUEST_ID = "requestId";
     private static final Set<String> SENSITIVE_QUERY_KEYS = Set.of("authorization", "bearer", "password", "token");
     private static final Pattern CPF_PATTERN = Pattern.compile("\\b\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}\\b");
+    public static final String HTTP = "[HTTP][OUT] method={} uri=\"{}\" status={} durationMs={} clientIp={} userAgent=\"{}\"";
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
@@ -74,18 +75,18 @@ public class HttpRequestLoggingFilter extends OncePerRequestFilter {
             String userAgent
     ) {
         if (status >= 500) {
-            log.error("[HTTP][OUT] method={} uri=\"{}\" status={} durationMs={} clientIp={} userAgent=\"{}\"",
+            log.error(HTTP,
                     method, uri, status, elapsedMs, clientIp, userAgent);
             return;
         }
 
         if (status >= 400) {
-            log.warn("[HTTP][OUT] method={} uri=\"{}\" status={} durationMs={} clientIp={} userAgent=\"{}\"",
+            log.warn(HTTP,
                     method, uri, status, elapsedMs, clientIp, userAgent);
             return;
         }
 
-        log.info("[HTTP][OUT] method={} uri=\"{}\" status={} durationMs={} clientIp={} userAgent=\"{}\"",
+        log.info(HTTP,
                 method, uri, status, elapsedMs, clientIp, userAgent);
     }
 
