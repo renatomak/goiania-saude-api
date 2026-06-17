@@ -23,3 +23,11 @@ springdoc:
     path: /swagger-ui.html
   api-docs:
     path: /v3/api-docs
+
+logging:
+  level:
+    root: INFO
+    br.gov.goiania.saude.paciente.api.infrastructure.adapter.in.web: TRACE
+  pattern:
+    # Formato curto e legivel para acompanhar requisicoes no terminal.
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"

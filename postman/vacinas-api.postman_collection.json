@@ -1,44 +1,42 @@
 {
   "info": {
-    "name": "Vacinas App API",
-    "description": "Colecao Postman para a API de consulta de pacientes e vacinas.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "_postman_id": "9f8e9221-ec97-4ab8-95f8-64d31dd4aa01",
+    "name": "vacina-detalhes-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection dos endpoints da API de pacientes, vacinas, prontuario e atendimentos."
   },
   "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:8083"
-    },
-    {
-      "key": "cpf",
-      "value": "123.456.789-01"
-    },
-    {
-      "key": "pacienteId",
-      "value": "1"
-    },
-    {
-      "key": "idAplicacao",
-      "value": "1"
-    }
+    { "key": "protocol", "value": "http" },
+    { "key": "host", "value": "localhost" },
+    { "key": "port", "value": "8083" },
+    { "key": "basePath", "value": "api" },
+    { "key": "baseUrl", "value": "{{protocol}}://{{host}}:{{port}}/{{basePath}}" },
+    { "key": "cpf", "value": "123.456.789-01" },
+    { "key": "pacienteId", "value": "1" },
+    { "key": "idAplicacao", "value": "1" },
+    { "key": "nrAtendimento", "value": "1" }
   ],
   "item": [
     {
-      "name": "Health - Swagger Docs",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/v3/api-docs",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "v3",
-            "api-docs"
-          ]
+      "name": "Health",
+      "item": [
+        {
+          "name": "Swagger API Docs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{protocol}}://{{host}}:{{port}}/v3/api-docs",
+              "protocol": "{{protocol}}",
+              "host": ["{{host}}"],
+              "port": "{{port}}",
+              "path": ["v3", "api-docs"]
+            },
+            "description": "Retorna o contrato OpenAPI da aplicacao."
+          },
+          "response": []
         }
-      }
+      ]
     },
     {
       "name": "Pacientes",
@@ -49,17 +47,15 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/pacientes/{{cpf}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pacientes",
-                "{{cpf}}"
-              ]
-            }
-          }
+              "raw": "{{baseUrl}}/pacientes/cpf/{{cpf}}",
+              "protocol": "{{protocol}}",
+              "host": ["{{host}}"],
+              "port": "{{port}}",
+              "path": ["{{basePath}}", "pacientes", "cpf", "{{cpf}}"]
+            },
+            "description": "Busca paciente pelo CPF."
+          },
+          "response": []
         },
         {
           "name": "Buscar Paciente por Id",
@@ -67,54 +63,15 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/pacientes/{{pacienteId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pacientes",
-                "{{pacienteId}}"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Listar Vacinas por Paciente",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/pacientes/{{pacienteId}}/vacinas",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "pacientes",
-                "{{pacienteId}}",
-                "vacinas"
-              ]
-            }
-          }
-        },
-        {
-          "name": "Buscar Histórico de Prontuário por Paciente",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/prontuario/{{pacienteId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "prontuario",
-                "{{pacienteId}}"
-              ]
-            }
-          }
+              "raw": "{{baseUrl}}/pacientes/{{pacienteId}}",
+              "protocol": "{{protocol}}",
+              "host": ["{{host}}"],
+              "port": "{{port}}",
+              "path": ["{{basePath}}", "pacientes", "{{pacienteId}}"]
+            },
+            "description": "Busca paciente por identificador."
+          },
+          "response": []
         }
       ]
     },
@@ -122,23 +79,57 @@
       "name": "Vacinas",
       "item": [
         {
+          "name": "Listar Vacinas por Paciente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/pacientes/{{pacienteId}}/vacinas",
+              "protocol": "{{protocol}}",
+              "host": ["{{host}}"],
+              "port": "{{port}}",
+              "path": ["{{basePath}}", "pacientes", "{{pacienteId}}", "vacinas"]
+            },
+            "description": "Lista vacinas do paciente informado."
+          },
+          "response": []
+        },
+        {
           "name": "Detalhar Aplicacao por Id",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/vacinas/aplicacoes/{{idAplicacao}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "vacinas",
-                "aplicacoes",
-                "{{idAplicacao}}"
-              ]
-            }
-          }
+              "raw": "{{baseUrl}}/vacinas/aplicacoes/{{idAplicacao}}",
+              "protocol": "{{protocol}}",
+              "host": ["{{host}}"],
+              "port": "{{port}}",
+              "path": ["{{basePath}}", "vacinas", "aplicacoes", "{{idAplicacao}}"]
+            },
+            "description": "Detalha uma aplicacao de vacina pelo id."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Prontuario",
+      "item": [
+        {
+          "name": "Buscar Historico por Paciente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/prontuario/{{pacienteId}}",
+              "protocol": "{{protocol}}",
+              "host": ["{{host}}"],
+              "port": "{{port}}",
+              "path": ["{{basePath}}", "prontuario", "{{pacienteId}}"]
+            },
+            "description": "Busca historico de prontuario do paciente."
+          },
+          "response": []
         }
       ]
     },
@@ -151,48 +142,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/atendimentos/1/exames",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "atendimentos",
-                "1",
-                "exames"
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "RAAS PSI",
-      "item": [
-        {
-          "name": "Listar Arquivos Gerados",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/raas-psi/arquivos?competencia=&unidade_id=&unidade=&situacao=&page=&size=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "raas-psi",
-                "arquivos"
-              ],
-              "query": [
-                { "key": "competencia", "value": "", "description": "Competência para filtro (opcional)" },
-                { "key": "unidade_id", "value": "", "description": "ID da unidade para filtro (opcional)" },
-                { "key": "unidade", "value": "", "description": "Nome da unidade para filtro (opcional)" },
-                { "key": "situacao", "value": "", "description": "Situação para filtro (opcional)" },
-                { "key": "page", "value": "", "description": "Página para paginação (opcional)" },
-                { "key": "size", "value": "", "description": "Tamanho da página (opcional)" }
-              ]
-            }
+              "raw": "{{baseUrl}}/atendimentos/{{nrAtendimento}}/exames",
+              "protocol": "{{protocol}}",
+              "host": ["{{host}}"],
+              "port": "{{port}}",
+              "path": ["{{basePath}}", "atendimentos", "{{nrAtendimento}}", "exames"]
+            },
+            "description": "Lista exames de um atendimento."
           },
           "response": []
         }
