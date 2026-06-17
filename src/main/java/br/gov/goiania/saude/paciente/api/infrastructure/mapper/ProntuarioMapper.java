@@ -9,7 +9,7 @@ import br.gov.goiania.saude.paciente.api.application.dto.RegistroResponse;
 import br.gov.goiania.saude.paciente.api.infrastructure.adapter.out.persistence.projection.ProntuarioRaw;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import java.time.format.DateTimeFormatter;
+import br.gov.goiania.saude.paciente.api.shared.util.FormatadorUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -95,10 +95,7 @@ public interface ProntuarioMapper {
     }
 
     default String formatarDataIso(java.time.LocalDateTime data) {
-        if (data == null) {
-            return null;
-        }
-        return data.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return FormatadorUtil.formatarDataHora(data);
     }
 
     default String mapTipoRegistro(Integer tipoId) {
