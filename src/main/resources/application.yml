@@ -27,7 +27,7 @@ springdoc:
 logging:
   level:
     root: INFO
-    br.gov.goiania.saude.paciente.api.infrastructure.adapter.in.web: TRACE
+    br.gov.goiania.saude.paciente.api.infrastructure.adapter.in.web.logging: INFO
   pattern:
-    # Formato curto e legivel para acompanhar requisicoes no terminal.
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"
+    # Inclui requestId (MDC) para correlacionar logs de entrada, saida e erro.
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{requestId:-}] %logger{36} - %msg%n"
